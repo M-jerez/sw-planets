@@ -1,13 +1,15 @@
 # `sw-planets`
+
 Single page application with a list of people and the details about their related
 home planet. The list of people and the information related to a planet can be
 accessed using the swapi api:
 
-__SWAPI api details__: https://swapi.dev/
+**SWAPI api details**: https://swapi.dev/
 
-&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;
 
 ### `Wireframes`
+
 A table that contains a list of users with the following columns:
 
 - Name
@@ -28,18 +30,30 @@ the following information regarding the planet:
 The user should be able to sort the table by each column. The user should
 also be able to filter by searching the persona's name.
 
-&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;
 
 ### `Stack`
-| Name | Description |
-| ---- | ----------- |
-| [Vue.js](https://vuejs.org/) | frontend framework |
-| [Typescript](https://www.typescriptlang.org/) | Static typed language on top of JS |
-| [Vuex](https://vuex.vuejs.org/) | state management system for vue |
-| [vuex-cache](https://github.com/superwf/vuex-cache) | cache plugin for vuex |
-| [vuex-persisted-state](https://github.com/robinvdvleuten/vuex-persistedstate) | persistence plugin fo vuex _(page-reloads)_ |
 
-&nbsp;
+| Name                                                                          | Description                                 |
+| ----------------------------------------------------------------------------- | ------------------------------------------- |
+| [Vue.js](https://vuejs.org/)                                                  | frontend framework                          |
+| [Typescript](https://www.typescriptlang.org/)                                 | Static typed language on top of JS          |
+| [Vuex](https://vuex.vuejs.org/)                                               | state management system for vue             |
+| [vuex-cache](https://github.com/superwf/vuex-cache)                           | cache plugin for vuex                       |
+| [vuex-persisted-state](https://github.com/robinvdvleuten/vuex-persistedstate) | persistence plugin fo vuex _(page-reloads)_ |
+| [swapi-ts](https://github.com/amitmtrn/swapi-ts)                              | api client for swapi written in typescript  |
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+
+### `SWAPI limitations`
+
+The [SWAPI](https://swapi.dev/documentation) returns all collections `paginated` ( `https://swapi.dev/api/people/?page=1` ). It is not possible to change the size of the page and does not support `orderBy` queries.
+
+Due to the requirement for users being able to sort by columns and the relatively small size of the Api. **The adopted approach is to download the full collection from the api and do the ordering in the browser. Otherwise the data displayed would be inconsistent** as the ordering would be only done on the "partial collection" in the browser and not into the full collection from the Api.
+
+For a large Api, and to be able to order, the Api must support both the `orderBy` and `Pagination` operations.
+
+&nbsp;&nbsp;&nbsp;&nbsp;
 
 ### `Commands`
 
@@ -74,4 +88,5 @@ npm run lint
 ```
 
 ### Customize configuration
+
 See [Configuration Reference](https://cli.vuejs.org/config/).
