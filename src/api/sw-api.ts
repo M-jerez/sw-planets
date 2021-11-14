@@ -1,9 +1,5 @@
 import { PaginatedResponse, SWEntity, SWEntityType, SWPerson, SWPlanet, urlRef } from './api-types';
 
-export type getPagePayload = { page?: number };
-export type getByIdPayload = { id: number };
-export type getResourcePayload = { url: urlRef };
-
 export async function get(url: urlRef) {
   return fetch(url).then((resp) => resp.json());
 }
@@ -43,5 +39,5 @@ export function entityApi<T extends SWEntity>(entity: SWEntityType) {
 export const SWApi = {
   persons: entityApi<SWPerson>('people'),
   planets: entityApi<SWPlanet>('planets'),
-  getResource: ({ url }: getResourcePayload) => get(url) as Promise<PaginatedResponse<SWEntity>> | Promise<SWEntity>,
+  getResource: (url: urlRef) => get(url) as Promise<PaginatedResponse<SWEntity>> | Promise<SWEntity>,
 };

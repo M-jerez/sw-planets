@@ -32,10 +32,10 @@ describe('api-client', () => {
   });
 
   it('should get any resource from the url', async () => {
-    const response1 = await SWApi.getResource({ url: 'https://swapi.dev/api/abc' });
+    const response1 = await SWApi.getResource('https://swapi.dev/api/abc');
     expect(fetch).toHaveBeenCalledWith('https://swapi.dev/api/abc');
 
-    const response2 = await SWApi.getResource({ url: 'https://swapi.dev/api/123' });
+    const response2 = await SWApi.getResource('https://swapi.dev/api/123');
     expect(fetch).toHaveBeenCalledWith('https://swapi.dev/api/123');
   });
 
