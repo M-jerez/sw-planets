@@ -1,5 +1,5 @@
-import { PaginatedResponse, SWEntity } from '@/api/models';
-import { entityApi, getFullCollection, SWApi } from '@/api/ws-api';
+import { PaginatedResponse, SWEntity } from '@/api/api-types';
+import { entityApi, getFullCollection, SWApi } from '@/api/sw-api';
 
 describe('api-client', () => {
   let pagResponse: PaginatedResponse<SWEntity>;

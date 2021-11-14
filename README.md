@@ -53,7 +53,22 @@ Due to the requirement for users being able to sort by columns and the relativel
 
 For a large Api, and to be able to order, the Api must support both the `orderBy` and `Pagination` operations.
 
+**Using `<entity>.url` as the id:**  
+Entities from SWAPI don't have and `id` property, but have the unique `url` property, therefore this `url` property can effectively be used as the entity id.
+
+- **pros:**
+  - no need to translate url references.
+  - no need to parse and extract the id from the url for every single item from the api.
+- **cons:**
+  - need to extract the id when doing queries by id.
+  - not intuitive and prone to misinterpretation when debugging.
+  - performance degradation when ordering collections?
+
+_This implementation detail could be analyzed with in more depth to properly weight pros and cons:_
+
 &nbsp;&nbsp;&nbsp;&nbsp;
+
+### `Vuex Store`
 
 ### `Commands`
 

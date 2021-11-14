@@ -1,13 +1,14 @@
-import { PaginatedResponse, SWEntity, SWPerson, SWPlanet, urlRef } from './models';
+import { PaginatedResponse, SWEntity, SWEntityType, SWPerson, SWPlanet, urlRef } from './api-types';
 
-export type getAllPayload = { page?: number };
+export type getPagePayload = { page?: number };
 export type getByIdPayload = { id: number };
 export type getResourcePayload = { url: urlRef };
-export type entity = 'people' | 'planets';
 
-export const get = (url: urlRef) => fetch(url).then((resp) => resp.json());
+export async function get(url: urlRef) {
+  return fetch(url).then((resp) => resp.json());
+}
 
-export const getFullCollection = async (url: urlRef, maxIterations = 50): Promise<PaginatedResponse<SWEntity>> => {
+export async function getFullCollection(url: urlRef, maxIterations = 50): Promise<PaginatedResponse<SWEntity>> {
   const results: SWEntity[] = [];
   const originalUrl = url;
   // only for loops and for of supports async/await
@@ -28,9 +29,9 @@ export const getFullCollection = async (url: urlRef, maxIterations = 50): Promis
     totalRequests: index,
     totalItems: results.length,
   };
-};
+}
 
-export function entityApi<T extends SWEntity>(entity: entity) {
+export function entityApi<T extends SWEntity>(entity: SWEntityType) {
   return {
     entity,
     getAll: () => getFullCollection(`https://swapi.dev/api/${entity}/?page=1`) as Promise<PaginatedResponse<T>>,
