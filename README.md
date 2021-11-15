@@ -68,7 +68,13 @@ _This implementation detail could be analyzed with in more depth to properly wei
 
 &nbsp;&nbsp;&nbsp;&nbsp;
 
-### `Vuex Store`
+### `Possible Vuex Optimizations`
+
+At the moment all the data is loading at the app initialization which might cause slow page loads. [vuex-persisted-state](https://github.com/robinvdvleuten/vuex-persistedstate) is used to mitigate this problem.
+
+Another possible strategy would be to load only the data for the page displayed in the ui, but s mentioned this would also require the api to support orderby and filter operations.
+
+&nbsp;&nbsp;&nbsp;&nbsp;
 
 ### `Commands`
 

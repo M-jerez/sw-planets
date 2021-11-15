@@ -4,11 +4,15 @@ export interface Person extends SWPerson {
   planetName?: string; // the planet name must be resolved from planets data
 }
 export interface Planet extends SWPlanet {} // eslint-disable-line
+
+export interface Pojo {
+  [key: string]: any;
+}
 export interface PersonsMap {
-  [key: urlRef]: Person;
+  [key: string]: Person;
 }
 export interface PlanetsMap {
-  [key: urlRef]: Planet;
+  [key: string]: Planet;
 }
 
 export interface PageSize {

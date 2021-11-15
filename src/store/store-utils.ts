@@ -1,6 +1,6 @@
 import { SWPerson } from '@/api/api-types';
 import { orderBy } from 'lodash-es';
-import { Person, PersonSortKey, PlanetsMap } from './store-types';
+import { Person, PersonSortKey, PlanetsMap, Pojo } from './store-types';
 
 // returns a new array sorted by parameters
 export function orderPersonsBy(items: Person[], columnName: PersonSortKey, isDescending: boolean) {
@@ -27,11 +27,11 @@ export function fillPlanetNames(persons: SWPerson[], planets: PlanetsMap): Perso
 }
 
 // transforms an Array into an Object using the property keyNames as keys
-export function arrayToMap<T>(items: T[], keyName = 'url'): { [keys: string]: T } {
+export function arrayToMap<T extends Pojo>(items: T[], keyName = 'url'): { [keys: string]: T } {
   if (!items || !items.length) return {};
   // could also use something from lodash like keyBy: return keyBy(items, keyName);
   return items.reduce((prev, planet) => {
-    const id = (planet as any)[keyName];
+    const id = planet[keyName];
     if (typeof id === 'undefined')
       throw new Error(`Invalid key ${keyName}, is not defined in object ${JSON.stringify(planet)}`);
     return {
