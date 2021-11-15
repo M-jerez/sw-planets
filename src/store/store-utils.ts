@@ -19,15 +19,13 @@ export function resolvePlanets(persons: SWPerson[], planets: PlanetsMap): Person
     const planetId = getIdFromURL('planets', person.homeworld);
     const planet = planets[planetId];
     const planetName = planet ? planet.name : '';
-    const created = new Date(person.created);
-    const edited = new Date(person.edited);
     return {
       ...person,
       id: getIdFromURL('people', person.url),
       planetName,
       planetId,
-      created,
-      edited,
+      massNum: sanitizeInt(person.mass),
+      heighNum: sanitizeInt(person.height),
     };
   });
 }
@@ -64,4 +62,10 @@ export function getIdFromURL(entity: SWEntityType, urlID: string): number {
   const pathParts = onlyPath.split('/');
   const idString = pathParts[0] === '' ? pathParts[1] : pathParts[0];
   return parseInt(idString, 10);
+}
+
+export function sanitizeInt(num: string): number {
+  const noColons = num.replaceAll(',', '');
+  const n = Number(noColons);
+  return isNaN(n) ? -1 : n;
 }

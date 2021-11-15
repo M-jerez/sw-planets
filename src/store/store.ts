@@ -55,7 +55,6 @@ export default new Vuex.Store<RootState>({
         state.currentPage = 1;
         return;
       }
-      // Array.filter preserves order so we don't have to order again
       state.filteredPersons = state.persons.filter(
         (person) => person.name.includes(fname) || fname.includes(person.name)
       );
@@ -76,9 +75,14 @@ export default new Vuex.Store<RootState>({
         context.commit('setPlanets', planetsResult.results);
         context.commit('setPersons', personsResult.results);
         context.commit('ordeBy', { orderBy: state.orderBy, isDescending: state.isDescending });
-      } catch (error) {
-        console.log(error);
-        context.commit('setError', error);
+      } catch (error: any) {
+        // no need use the state to display a notification error, better use a service
+        Vue.notify({
+          group: 'app',
+          type: 'error',
+          title: 'Error Fetching Data',
+          text: error.message,
+        });
       }
     },
     orderBy(context, payload: OrderByPayload) {
@@ -93,7 +97,9 @@ export default new Vuex.Store<RootState>({
   },
   getters: {
     getDisplayedPersons(state) {
+      state.pageSize.size;
       const persons = state.filteredPersons.length ? state.filteredPersons : state.persons;
+      if (state.pageSize.size <= 0) return persons;
       const start = (state.currentPage - 1) * state.pageSize.size;
       const end = Math.min(persons.length, start + state.pageSize.size);
       return persons.slice(start, end + 1);

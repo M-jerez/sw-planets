@@ -16,8 +16,8 @@
         <th scope="row">{{ person.name }}</th>
         <td>{{ person.height }}</td>
         <td>{{ person.mass }}</td>
-        <td>{{ person.created.toLocaleDateString() }}</td>
-        <td>{{ person.edited.toLocaleDateString() }}</td>
+        <td>{{ person.created | formatDate }}</td>
+        <td>{{ person.edited | formatDate }}</td>
         <td>{{ person.planetName }}</td>
         <td>{{ person.url }}</td>
       </tr>
@@ -28,6 +28,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { mapGetters, mapState } from 'vuex';
+import dayjs from 'dayjs';
 
 export default Vue.extend({
   computed: {
@@ -37,6 +38,13 @@ export default Vue.extend({
     ...mapGetters({
       people: 'getDisplayedPersons',
     }),
+  },
+  filters: {
+    formatDate: (date: Date | string) => {
+      const d = dayjs(date);
+      const f = d.format('lll');
+      return f;
+    },
   },
 });
 </script>

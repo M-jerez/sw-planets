@@ -4,6 +4,8 @@ export interface Person extends SWPerson {
   // planet name must be resolved from planets data
   planetName?: string;
   planetId: number;
+  massNum: number;
+  heighNum: number;
 }
 export interface Planet extends SWPlanet {} // eslint-disable-line
 

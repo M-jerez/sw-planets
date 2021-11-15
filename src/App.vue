@@ -8,6 +8,7 @@
         </div>
       </div>
     </div>
+    <notifications group="app" width="400px" position="top right" duration="6000" />
   </div>
 </template>
 
@@ -31,5 +32,9 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.vue-notification-template {
+  text-align: center;
 }
 </style>
