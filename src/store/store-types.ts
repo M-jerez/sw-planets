@@ -1,7 +1,9 @@
 import { SWPerson, SWPlanet, urlRef } from '@/api/api-types';
 
 export interface Person extends SWPerson {
-  planetName?: string; // the planet name must be resolved from planets data
+  // planet name must be resolved from planets data
+  planetName?: string;
+  planetId: number;
 }
 export interface Planet extends SWPlanet {} // eslint-disable-line
 
@@ -27,8 +29,8 @@ export const PAGE_SIZES = {
   all: { size: -1, displayText: 'All' },
 };
 
-export type PersonDisplayedRow = Pick<Person, 'url' | 'name' | 'height' | 'mass' | 'created' | 'edited' | 'planetName'>;
-export type PlanetDisplayed = Pick<Planet, 'url' | 'name' | 'diameter' | 'climate' | 'population'>;
+export type PersonDisplayedRow = Pick<Person, 'id' | 'name' | 'height' | 'mass' | 'created' | 'edited' | 'planetName'>;
+export type PlanetDisplayed = Pick<Planet, 'id' | 'name' | 'diameter' | 'climate' | 'population'>;
 export type PersonSortKey = keyof PersonDisplayedRow;
 
 export interface RootState {

@@ -1,6 +1,23 @@
 <template>
-  <div id="app"></div>
+  <div id="app">
+    <div class="cotainer">
+      <h1>Star Wars Planets</h1>
+      <div class="grid">
+        <div>
+          <People />
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
+
+<script>
+import People from './components/People.vue';
+
+export default {
+  components: { People },
+};
+</script>
 
 <style lang="scss">
 #app {
@@ -9,5 +26,10 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  min-height: 100vh;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>
