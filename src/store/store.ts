@@ -86,16 +86,32 @@ export default new Vuex.Store<RootState>({
       state.filteredPersons = [];
       state.currentPage = 1;
     },
+    reset(state) {
+      state.persons = []; // array is sorted using sortBy
+      state.planets = [];
+      state.personsMap = {};
+      state.planetsMap = {};
+      state.orderBy = 'id';
+      state.isDescending = false;
+      state.filterBy = 'name'; // only name allowed for now
+      state.filter = '';
+      state.pageSize = PAGE_SIZES.all;
+      state.currentPage = 1;
+      state.filteredPersons = []; // array is filtered and sorted using sortBy
+    },
   },
   actions: {
-    async init(context) {
+    async init(context, forceLoadData = false) {
       const state = context.state;
-      const arePersonsLoaded =
-        state.persons.length > 0 && state.persons.length === Object.keys(state.personsMap).length;
-      const arePlanetsLoaded =
-        state.planets.length > 0 && state.planets.length === Object.keys(state.planetsMap).length;
-      context.commit('resetFilter');
-      if (arePersonsLoaded && arePlanetsLoaded) return;
+      if (!forceLoadData) {
+        const arePersonsLoaded =
+          state.persons.length > 0 && state.persons.length === Object.keys(state.personsMap).length;
+        const arePlanetsLoaded =
+          state.planets.length > 0 && state.planets.length === Object.keys(state.planetsMap).length;
+        context.commit('resetFilter');
+        if (arePersonsLoaded && arePlanetsLoaded) return;
+      }
+
       try {
         const [planetsResult, personsResult] = await Promise.all([SWApi.planets.getAll(), SWApi.persons.getAll()]);
         // setPlanets must be called before so planetName can be correctly resolved
@@ -111,6 +127,10 @@ export default new Vuex.Store<RootState>({
           text: error.message,
         });
       }
+    },
+    reloadData(context) {
+      context.commit('reset');
+      context.dispatch('init', true);
     },
     orderBy(context, payload: OrderByPayload) {
       context.commit('orderBy', payload);

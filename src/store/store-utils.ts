@@ -9,7 +9,7 @@ export function orderPersonsBy(items: Person[], columnName: PersonSortKey, isDes
   return orderBy(items, columnName, order);
 }
 
-// returns a new Persons array by adding the planet Names, ids and parsing dates
+// returns a new Persons array by adding the planet Names, ids, and all extra fields required for the ui
 export function normalizePersons(persons: SWPerson[], planets: PlanetsMap): Person[] {
   if (!persons || !persons.length) return [];
   return persons.map((person) => {

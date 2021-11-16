@@ -45,9 +45,12 @@ export default Vue.extend({
   cursor: pointer;
   white-space: nowrap;
 }
+.title:hover {
+  color: $wars-yellow;
+}
 .isActive {
   .title {
-    text-shadow: 0px 0px 3px $wars-yellow;
+    color: $wars-yellow;
   }
 }
 .direction {

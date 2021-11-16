@@ -4,6 +4,8 @@ export interface Person extends SWPerson {
   // planet name must be resolved from planets data
   planetName?: string;
   planetId: number;
+
+  // required fields for ui
   massNum: number;
   heighNum: number;
   nameLowerCase: string;
