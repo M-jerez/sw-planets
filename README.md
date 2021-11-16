@@ -56,7 +56,7 @@ For a large Api, and to be able to order, the Api must support both the `orderBy
 
 ### `Possible Vuex Optimizations`
 
-At the moment all the data is loading during the app initialization which might cause slow page loads. [vuex-persisted-state](https://github.com/robinvdvleuten/vuex-persistedstate) is used to mitigate this problem.
+At the moment all the data is loading during the app initialization which might cause slow page loads. [vuex-persisted-state](https://github.com/robinvdvleuten/vuex-persistedstate) is used to mitigate this problem. (A reload button has been added to let the user reload data if required)
 
 Another possible strategy would be to load only the data for the page displayed in the ui, but s mentioned this would also require the api to support orderby and filter operations.
 

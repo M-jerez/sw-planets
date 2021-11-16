@@ -37,4 +37,7 @@ h1 {
 .vue-notification-template {
   text-align: center;
 }
+.vm--overlay {
+  background: rgba(0, 0, 0, 0.5);
+}
 </style>

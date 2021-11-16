@@ -25,8 +25,8 @@ export function normalizePersons(persons: SWPerson[], planets: PlanetsMap): Pers
       id: getIdFromURL('people', person.url),
       planetName,
       planetId,
-      massNum: sanitizeInt(person.mass),
-      heighNum: sanitizeInt(person.height),
+      massNum: sanitizeNumber(person.mass),
+      heighNum: sanitizeNumber(person.height),
       nameLowerCase,
       nameLowerNonAlpha: person.name.toLowerCase().replace(/\W/, ''),
     };
@@ -67,7 +67,7 @@ export function getIdFromURL(entity: SWEntityType, urlID: string): number {
   return parseInt(idString, 10);
 }
 
-export function sanitizeInt(num: string): number {
+export function sanitizeNumber(num: string): number {
   const noColons = num.replaceAll(',', '');
   const n = Number(noColons);
   return isNaN(n) ? -1 : n;

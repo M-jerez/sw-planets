@@ -23,6 +23,7 @@ export default new Vuex.Store<RootState>({
     pageSize: PAGE_SIZES.all,
     currentPage: 1,
     filteredPersons: [], // array is filtered and sorted using sortBy
+    selectedPlanet: null,
   },
   mutations: {
     setPersons(state, persons: SWPerson[]) {
@@ -98,6 +99,10 @@ export default new Vuex.Store<RootState>({
       state.pageSize = PAGE_SIZES.all;
       state.currentPage = 1;
       state.filteredPersons = []; // array is filtered and sorted using sortBy
+      state.selectedPlanet = null;
+    },
+    selectPlanet(state, planetId: number) {
+      state.selectedPlanet = state.planetsMap[planetId];
     },
   },
   actions: {
@@ -143,6 +148,9 @@ export default new Vuex.Store<RootState>({
     },
     filterPersons(context, payload: string) {
       context.commit('filterPersons', payload);
+    },
+    selectPlanet(context, planetId: number) {
+      context.commit('selectPlanet', planetId);
     },
   },
   getters: {

@@ -44,6 +44,7 @@ export interface RootState {
   pageSize: PageSize;
   currentPage: number;
   filteredPersons: Person[];
+  selectedPlanet: Planet | null;
 }
 
 export type OrderByPayload = { orderBy: PersonSortKey; isDescending: boolean };
