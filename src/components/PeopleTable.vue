@@ -32,6 +32,9 @@
             <h3 v-if="$store.state.filter">
               <span class="missing-name">{{ $store.state.filter }}</span> is missing
             </h3>
+            <h3 v-if="$store.state.isLoading">
+              <p aria-busy="true">&nbsp;</p>
+            </h3>
             <img src="@/assets/logo.svg" alt="start wras" width="300" />
           </td>
         </tr>

@@ -24,6 +24,7 @@ export default new Vuex.Store<RootState>({
     currentPage: 1,
     filteredPersons: [], // array is filtered and sorted using sortBy
     selectedPlanet: null,
+    isLoading: false,
   },
   mutations: {
     setPersons(state, persons: SWPerson[]) {
@@ -100,9 +101,13 @@ export default new Vuex.Store<RootState>({
       state.currentPage = 1;
       state.filteredPersons = []; // array is filtered and sorted using sortBy
       state.selectedPlanet = null;
+      state.isLoading = false;
     },
     selectPlanet(state, planetId: number) {
       state.selectedPlanet = state.planetsMap[planetId];
+    },
+    isLoading(state, isLoading) {
+      state.isLoading = isLoading;
     },
   },
   actions: {
@@ -118,6 +123,7 @@ export default new Vuex.Store<RootState>({
       }
 
       try {
+        context.commit('isLoading', true);
         const [planetsResult, personsResult] = await Promise.all([SWApi.planets.getAll(), SWApi.persons.getAll()]);
         // setPlanets must be called before so planetName can be correctly resolved
         context.commit('setPlanets', planetsResult.results);
@@ -132,6 +138,7 @@ export default new Vuex.Store<RootState>({
           text: error.message,
         });
       }
+      context.commit('isLoading', false);
     },
     reloadData(context) {
       context.commit('reset');

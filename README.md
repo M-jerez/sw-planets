@@ -1,7 +1,7 @@
 # `sw-planets`
 
-Single page application with a list of people and the details about their related
-home planet. The list of people and the information related to a planet can be
+Single page application with a list of characters from Star Wars and details about their related
+home planet. The list of characters and the information related to the planets can be
 accessed using the swapi api:
 
 **SWAPI api details**: https://swapi.dev/
