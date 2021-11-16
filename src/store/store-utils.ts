@@ -10,7 +10,7 @@ export function orderPersonsBy(items: Person[], columnName: PersonSortKey, isDes
 }
 
 // returns a new Persons array by adding the planet Names, ids and parsing dates
-export function resolvePlanets(persons: SWPerson[], planets: PlanetsMap): Person[] {
+export function normalizePersons(persons: SWPerson[], planets: PlanetsMap): Person[] {
   if (!persons || !persons.length) return [];
   return persons.map((person) => {
     /* This code could be reduced but this way is more expressive and self explanatory.
@@ -19,6 +19,7 @@ export function resolvePlanets(persons: SWPerson[], planets: PlanetsMap): Person
     const planetId = getIdFromURL('planets', person.homeworld);
     const planet = planets[planetId];
     const planetName = planet ? planet.name : '';
+    const nameLowerCase = person.name.toLowerCase();
     return {
       ...person,
       id: getIdFromURL('people', person.url),
@@ -26,11 +27,13 @@ export function resolvePlanets(persons: SWPerson[], planets: PlanetsMap): Person
       planetId,
       massNum: sanitizeInt(person.mass),
       heighNum: sanitizeInt(person.height),
+      nameLowerCase,
+      nameLowerNonAlpha: person.name.toLowerCase().replace(/\W/, ''),
     };
   });
 }
 
-export function resolveIds<T extends SWEntity>(items: T[], entity: SWEntityType): T[] {
+export function normalizeIds<T extends SWEntity>(items: T[], entity: SWEntityType): T[] {
   return items.map((item) => ({
     ...item,
     id: getIdFromURL(entity, item.url),
@@ -68,4 +71,15 @@ export function sanitizeInt(num: string): number {
   const noColons = num.replaceAll(',', '');
   const n = Number(noColons);
   return isNaN(n) ? -1 : n;
+}
+
+export function filterByNames(persons: Person[], filter: string): Person[] {
+  return persons.filter((person) => {
+    return (
+      person.nameLowerCase.includes(filter) ||
+      person.nameLowerNonAlpha.includes(filter) ||
+      filter.includes(person.nameLowerCase) ||
+      filter.includes(person.nameLowerNonAlpha)
+    );
+  });
 }

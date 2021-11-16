@@ -1,22 +1,23 @@
 <template>
   <div id="app">
-    <div class="cotainer">
+    <div class="container">
       <h1>Star Wars Planets</h1>
       <div class="grid">
         <div>
-          <People />
+          <PeopleTable />
         </div>
       </div>
     </div>
-    <notifications group="app" width="400px" position="top right" duration="6000" />
+    <!-- prettier-ignore-attribute -->
+    <notifications group="app" width="400px" position="top right" />
   </div>
 </template>
 
 <script>
-import People from './components/People.vue';
+import PeopleTable from './components/PeopleTable.vue';
 
 export default {
-  components: { People },
+  components: { PeopleTable },
 };
 </script>
 
@@ -29,11 +30,10 @@ export default {
   color: #2c3e50;
   min-height: 100vh;
   text-align: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
-
+h1 {
+  margin-top: 1em;
+}
 .vue-notification-template {
   text-align: center;
 }
