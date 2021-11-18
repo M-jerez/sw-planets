@@ -1,6 +1,7 @@
 import { SWPerson, SWPlanet, urlRef } from '@/api/api-types';
 
 export interface Person extends SWPerson {
+  id: number;
   // planet name must be resolved from planets data
   planetName?: string;
   planetId: number;
@@ -11,7 +12,11 @@ export interface Person extends SWPerson {
   nameLowerCase: string;
   nameLowerNonAlpha: string;
 }
-export interface Planet extends SWPlanet {} // eslint-disable-line
+export interface Planet extends SWPlanet {
+  id: number;
+}
+
+export type Entity = SWPerson | SWPlanet;
 
 export interface Pojo {
   [key: string]: any;

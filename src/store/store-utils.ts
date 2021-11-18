@@ -1,6 +1,6 @@
 import { SWEntity, SWEntityType, SWPerson } from '@/api/api-types';
 import { orderBy } from 'lodash-es';
-import { Person, PersonSortKey, PlanetsMap, Pojo } from './store-types';
+import { Entity, Person, PersonSortKey, PlanetsMap, Pojo, RootState } from './store-types';
 
 // returns a new array sorted by parameters
 export function orderPersonsBy(items: Person[], columnName: PersonSortKey, isDescending: boolean) {
@@ -33,7 +33,7 @@ export function normalizePersons(persons: SWPerson[], planets: PlanetsMap): Pers
   });
 }
 
-export function normalizeIds<T extends SWEntity>(items: T[], entity: SWEntityType): T[] {
+export function normalizeIds<T extends SWEntity>(items: T[], entity: SWEntityType): Entity[] {
   return items.map((item) => ({
     ...item,
     id: getIdFromURL(entity, item.url),
@@ -82,4 +82,12 @@ export function filterByNames(persons: Person[], filter: string): Person[] {
       filter.includes(person.nameLowerNonAlpha)
     );
   });
+}
+
+export function isStateSameAsAPI(state: RootState, countPersonsAPI: number, countPlanetsAPI: number): boolean {
+  const arePersonsLoaded =
+    state.persons.length === countPersonsAPI && state.persons.length === Object.keys(state.personsMap).length;
+  const arePlanetsLoaded =
+    state.planets.length === countPlanetsAPI && state.planets.length === Object.keys(state.planetsMap).length;
+  return arePersonsLoaded && arePlanetsLoaded;
 }

@@ -2,9 +2,9 @@
 
 Single page application with a list of characters from Star Wars and details about their related
 home planet. The list of characters and the information related to the planets can be
-accessed using the swapi api:
+accessed using the swapi api: **SWAPI api details**: https://swapi.dev/
 
-**SWAPI api details**: https://swapi.dev/
+**sw-planets Demo page: https://m-jerez.github.io/sw-planets/**
 
 &nbsp;&nbsp;&nbsp;&nbsp;
 
@@ -30,6 +30,10 @@ the following information regarding the planet:
 The user should be able to sort the table by each column. The user should
 also be able to filter by searching the persona's name.
 
+&nbsp;
+
+[![demo](./public/demo.png??raw=true)](https://m-jerez.github.io/sw-planets/)
+
 &nbsp;&nbsp;&nbsp;&nbsp;
 
 ### `Stack`
@@ -40,7 +44,6 @@ also be able to filter by searching the persona's name.
 | [Typescript](https://www.typescriptlang.org/)                                 | Static typed language on top of JS          |
 | [Vuex](https://vuex.vuejs.org/)                                               | state management system for vue             |
 | [vuex-persisted-state](https://github.com/robinvdvleuten/vuex-persistedstate) | persistence plugin fo vuex _(page-reloads)_ |
-| [swapi-ts](https://github.com/amitmtrn/swapi-ts)                              | api client for swapi written in typescript  |
 
 &nbsp;&nbsp;&nbsp;&nbsp;
 
@@ -58,7 +61,7 @@ For a large Api, and to be able to order, the Api must support both the `orderBy
 
 At the moment all the data is loading during the app initialization which might cause slow page loads. [vuex-persisted-state](https://github.com/robinvdvleuten/vuex-persistedstate) is used to mitigate this problem. (A reload button has been added to let the user reload data if required)
 
-Another possible strategy would be to load only the data for the page displayed in the ui, but s mentioned this would also require the api to support orderby and filter operations.
+Another possible strategy would be to load only the data for the page displayed in the ui ( pagination component still pending to implement), but as mentioned this would also require the api to support orderby and filter operations.
 
 &nbsp;&nbsp;&nbsp;&nbsp;
 
