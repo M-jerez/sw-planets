@@ -3,4 +3,5 @@ module.exports = {
     process.env.NODE_ENV === 'production'
       ? '/sw-planets/' // prod
       : '/', // dev
+  outputDir: 'demo',
 };
