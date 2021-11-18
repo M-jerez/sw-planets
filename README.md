@@ -2,9 +2,9 @@
 
 Single page application with a list of characters from Star Wars and details about their related
 home planet. The list of characters and the information related to the planets can be
-accessed using the swapi api:
+accessed using the swapi api: **SWAPI api details**: https://swapi.dev/
 
-**SWAPI api details**: https://swapi.dev/
+**sw-planets Demo page: https://m-jerez.github.io/sw-planets/**
 
 &nbsp;&nbsp;&nbsp;&nbsp;
 
@@ -29,6 +29,10 @@ the following information regarding the planet:
 
 The user should be able to sort the table by each column. The user should
 also be able to filter by searching the persona's name.
+
+&nbsp;
+
+[![demo](./public/demo.png??raw=true)](https://m-jerez.github.io/sw-planets/)
 
 &nbsp;&nbsp;&nbsp;&nbsp;
 
