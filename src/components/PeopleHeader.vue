@@ -1,8 +1,8 @@
 <template>
   <th scope="col" class="peopleHeader" v-bind:class="{ isActive }" @click="toggleOrderBy()">
     <span class="title">{{ column.text }} </span>
-    <span class="direction" v-bind:class="{ isAscending }">▲</span>
-    <span class="direction" v-bind:class="{ isDescending }">▼</span>
+    <span class="direction" v-if="isAscending">▲</span>
+    <span class="direction" v-if="isDescending">▼</span>
     <span class="direction empty" v-if="!isActive">⇕</span>
   </th>
 </template>
@@ -55,13 +55,7 @@ export default Vue.extend({
 }
 .direction {
   color: $wars-yellow;
-  display: none;
-  &.isAscending,
-  &.isDescending {
-    display: inline;
-  }
   &.empty {
-    display: inline;
     opacity: 0;
     visibility: hidden;
   }

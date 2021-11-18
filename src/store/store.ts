@@ -2,8 +2,15 @@ import { SWPerson, SWPlanet } from '@/api/api-types';
 import { SWApi } from '@/api/sw-api';
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { OrderByPayload, PersonSortKey, RootState } from './store-types';
-import { arrayToMap, normalizePersons, orderPersonsBy, normalizeIds, filterByNames } from './store-utils';
+import { OrderByPayload, PersonSortKey, PlanetsMap, RootState } from './store-types';
+import {
+  arrayToMap,
+  normalizePersons,
+  orderPersonsBy,
+  normalizeIds,
+  filterByNames,
+  isStateSameAsAPI,
+} from './store-utils';
 import createPersistedState from 'vuex-persistedstate';
 import { PAGE_SIZES } from '@/constants';
 
@@ -41,7 +48,7 @@ export default new Vuex.Store<RootState>({
       // merge existing and new planets
       state.planetsMap = {
         ...state.planetsMap,
-        ...arrayToMap(resolved),
+        ...(arrayToMap(resolved) as PlanetsMap),
       };
       state.planets = Object.values(state.planetsMap);
     },
@@ -113,17 +120,19 @@ export default new Vuex.Store<RootState>({
   actions: {
     async init(context, forceLoadData = false) {
       const state = context.state;
-      if (!forceLoadData) {
-        const arePersonsLoaded =
-          state.persons.length > 0 && state.persons.length === Object.keys(state.personsMap).length;
-        const arePlanetsLoaded =
-          state.planets.length > 0 && state.planets.length === Object.keys(state.planetsMap).length;
-        context.commit('resetFilter');
-        if (arePersonsLoaded && arePlanetsLoaded) return;
-      }
-
+      context.commit('resetFilter');
+      context.commit('isLoading', true);
       try {
-        context.commit('isLoading', true);
+        if (!forceLoadData && state.persons.length > 0 && state.persons.length > 0) {
+          // loads first pages and checks if the count of items is the same as local data
+          const [firstPlanetsPage, firstPersonsPage] = await Promise.all([
+            SWApi.planets.getPage(),
+            SWApi.persons.getPage(),
+          ]);
+          if (isStateSameAsAPI(state, firstPersonsPage.count, firstPlanetsPage.count))
+            return context.commit('isLoading', false);
+        }
+
         const [planetsResult, personsResult] = await Promise.all([SWApi.planets.getAll(), SWApi.persons.getAll()]);
         // setPlanets must be called before so planetName can be correctly resolved
         context.commit('setPlanets', planetsResult.results);
@@ -162,6 +171,7 @@ export default new Vuex.Store<RootState>({
   },
   getters: {
     getDisplayedPersons(state) {
+      if (state.isLoading) return [];
       state.pageSize.size;
       const persons = state.filter !== '' ? state.filteredPersons : state.persons;
       if (state.pageSize.size <= 0) return persons;

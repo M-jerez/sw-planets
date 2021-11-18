@@ -1,7 +1,6 @@
 export type urlRef = string; // url to find the related relationship in the API
 
 export interface SWPerson {
-  id: number;
   name: string;
   height: string; // must be translated to number
   mass: string; // must be translated to number
@@ -21,7 +20,6 @@ export interface SWPerson {
 }
 
 export interface SWPlanet {
-  id: number;
   name: string;
   rotation_period: number;
   orbital_period: number;

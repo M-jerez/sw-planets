@@ -27,7 +27,7 @@
           </td>
           <!-- <td>{{ person.url }}</td> -->
         </tr>
-        <tr v-if="!persons || persons.length == 0">
+        <tr v-if="!persons || persons.length === 0">
           <td scope="row" colspan="6" class="no-results">
             <h3 v-if="$store.state.filter">
               <span class="missing-name">{{ $store.state.filter }}</span> is missing
